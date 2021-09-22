@@ -15,8 +15,8 @@ cv2.waitKey(0)
 (h, w) = image.shape[:2]
 pointMoveAround = (w//3, h//3)
 
-# rotate image by -10 degrees
-M = cv2.getRotationMatrix2D(pointMoveAround, -10, 1.0)
+# rotate image by -10 degrees and scale by 1.7
+M = cv2.getRotationMatrix2D(pointMoveAround, -10, 1.7)
 rotated = cv2.warpAffine(image, M, (w, h))
 cv2.imshow("Rotated by -10 degrees", rotated)
 cv2.waitKey(0)
@@ -24,4 +24,9 @@ cv2.waitKey(0)
 # rotate image by 30 degrees
 rotated = imutils.rotate(image, 30)
 cv2.imshow("Rotated by 30 degrees", rotated)
+cv2.waitKey(0)
+
+# gaussian blur with kernel size 9x9
+blurred = cv2.GaussianBlur(image, (9, 9), 0)
+cv2.imshow("Gaussian", blurred)
 cv2.waitKey(0)
