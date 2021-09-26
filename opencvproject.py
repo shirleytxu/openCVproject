@@ -52,6 +52,12 @@ corner = image[0:450, 0:800]
 cv2.imshow("Corner", corner)
 cv2.waitKey(0)
 
+# chapter 6: image filter
+#applies HLS filter
+hls = cv2.cvtColor(image, cv2.COLOR_BGR2HLS_FULL)
+cv2.imshow("HLS", hls)
+cv2.waitKey(0)
+
 # chapter 5: drawing shapes
 # add "OpenCV" text to center of image
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
