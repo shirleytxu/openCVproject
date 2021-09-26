@@ -1,3 +1,6 @@
+from mpl_toolkits.mplot3d import Axes3D
+from pynput import keyboard
+import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 import imutils
@@ -5,12 +8,21 @@ import cv2
 
 # chapter 3: loading images
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True, help = "Path to the image")
+ap.add_argument("-i", "--image", required=True, help="Path to image")
+
+# chapter 7: preparing for 3d histogram
+ap.add_argument("-s", "--size", required=False, help="Largest color bin size",
+                default=5000)
+ap.add_argument("-b", "--bins", required=False, help="Num bins per color "
+                                                     "channel", default=8)
 args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"])
 cv2.imshow("Original", image)
 cv2.waitKey(0)
+
+size = float(args["size"])
+bins = int(args["bins"])
 
 # chapter 6: image transformation (rotation and scaling)
 # image is rotated around point representing 1/3 of width and 1/3 of height
@@ -40,3 +52,19 @@ corner = image[0:450, 0:800]
 cv2.imshow("Corner", corner)
 cv2.waitKey(0)
 
+# chapter 7: 3d histogram
+hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins], [0, 256, 0,
+                                                                   256, 0, 256])
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+ratio = size / np.max(hist)
+
+for (x, plane) in enumerate(hist):
+    for (y, row) in enumerate(plane):
+        for (z, col) in enumerate(row):
+            if hist[x][y][z] > 0.0:
+                siz = ratio * hist[x][y][z]
+                rgb = (z / (bins - 1), y / (bins - 1), x / (bins - 1))
+                ax.scatter(x, y, z, s=siz, facecolors=rgb)
+
+plt.show()
