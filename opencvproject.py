@@ -52,6 +52,22 @@ corner = image[0:450, 0:800]
 cv2.imshow("Corner", corner)
 cv2.waitKey(0)
 
+# chapter 5: drawing shapes
+# add "OpenCV" text to center of image
+font = cv2.FONT_HERSHEY_COMPLEX_SMALL
+fontScale = 5
+thickness = 2
+white = (255, 255, 255)
+pointStart = (w//10, h//2)
+cv2.putText(image, 'OpenCV', pointStart, font, fontScale, white, thickness, cv2.LINE_AA)
+
+# add yellow triangle around moon
+triangleColor = (76, 174, 206)
+pts = [(180, 250), (100, 400), (250, 400)]
+cv2.polylines(image, np.array([pts]), True, triangleColor, 5)
+cv2.imshow('Triangle Moon', image)
+cv2.waitKey(0)
+
 # chapter 7: 3d histogram
 hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins], [0, 256, 0,
                                                                    256, 0, 256])
@@ -68,3 +84,5 @@ for (x, plane) in enumerate(hist):
                 ax.scatter(x, y, z, s=siz, facecolors=rgb)
 
 plt.show()
+cv2.waitKey(0)
+cv2.destroyAllWindows()
