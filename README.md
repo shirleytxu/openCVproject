@@ -8,4 +8,4 @@
 - Chapter 8: Add blurring 
 
 # Special Instructions: 
-I added some code at the end of my program to accomidate for closing all opened windows created by my program. Instructions are given in the terminal and it's pretty self-explanatory from there, just wanted to write a quick note about it here in case you were  focused on the opened windows / didn't see the prompts from the terminal. 
+I added some code at the end of my program to accomidate for closing all opened windows created by my program. Instructions are given in the terminal after all windows have been opened and it's pretty self-explanatory from there. Just in case you were looking only at the opened windows / didn't see the prompts from the terminal though, I wanted to write a quick note :) 
