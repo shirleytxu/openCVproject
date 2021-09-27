@@ -3,20 +3,20 @@ import numpy as np
 import argparse
 import imutils
 import cv2
-import time
 
-# chapter 3: loading images
+# create argparse arguments for image
 ap = argparse.ArgumentParser()
+
 ap.add_argument("-i", "--image", required=True, help="Path to image")
 
-# chapter 7: preparing for 3d histogram
-ap.add_argument("-s", "--size", required=False, help="Largest color bin size for "
-                                                     "histogram", default=5000)
-ap.add_argument("-b", "--bins", required=False, help="Num bins per color "
-                                                     "channel for histogram",
-                default=8)
+# create argparse arguments for 3d histogram
+ap.add_argument("-s", "--size", required=False,
+                help="Largest color bin size for histogram", default=5000)
+ap.add_argument("-b", "--bins", required=False,
+                help="Num bins per color channel for histogram", default=8)
 args = vars(ap.parse_args())
 
+# chapter 3: loading images
 image = cv2.imread(args["image"])
 cv2.imshow("Chapter 3: Original Image (Press any key to continue)", image)
 cv2.waitKey(0)
@@ -41,7 +41,7 @@ cv2.imshow("Chapter 6: Rotate by 30 degrees", rotated)
 cv2.waitKey(0)
 
 # chapter 8: blurring
-# gaussian blur with kernel size 9x9
+# apply gaussian blur with kernel size 9x9
 blurred = cv2.GaussianBlur(image, (9, 9), 0)
 cv2.imshow("Chapter 8: Gaussian Blur", blurred)
 cv2.waitKey(0)
@@ -53,7 +53,7 @@ cv2.imshow("Chapter 4: Grab upper left corner of image", corner)
 cv2.waitKey(0)
 
 # chapter 6: image filter
-#applies HLS filter
+# applies HLS filter
 hls = cv2.cvtColor(image, cv2.COLOR_BGR2HLS_FULL)
 cv2.imshow("Chapter 6: Apply HLS filter", hls)
 cv2.waitKey(0)
