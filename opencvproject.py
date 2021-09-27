@@ -1,10 +1,9 @@
-from mpl_toolkits.mplot3d import Axes3D
-from pynput import keyboard
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 import imutils
 import cv2
+import time
 
 # chapter 3: loading images
 ap = argparse.ArgumentParser()
@@ -89,6 +88,27 @@ for (x, plane) in enumerate(hist):
                 rgb = (z / (bins - 1), y / (bins - 1), x / (bins - 1))
                 ax.scatter(x, y, z, s=siz, facecolors=rgb)
 
-plt.show()
-cv2.waitKey(0)
+plt.show(block=False)
+
+# sets timer for when to close all windows because cv2.waitKey(0) doesn't
+# work on the plt window
+while True:
+    try:
+        requestedSecTime = int(input("How many seconds would you like to view "
+                                    "these windows for? "))
+        break
+    except ValueError:
+        print("Please enter an integer :)")
+
+while requestedSecTime:
+    # divmod returns quotient and remainder of numSecRequested / 60
+    numMin, numSec = divmod(requestedSecTime, 60)
+    #formats numMin and numSec to two digits, with left digit = 0
+    timer = "{:02d}:{:02d}".format(numMin, numSec)
+    print(timer, end="\r")
+    time.sleep(1)
+    requestedSecTime -= 1
+
+print("Closing now!")
+plt.close('all')
 cv2.destroyAllWindows()
