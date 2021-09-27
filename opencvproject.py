@@ -10,14 +10,15 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True, help="Path to image")
 
 # chapter 7: preparing for 3d histogram
-ap.add_argument("-s", "--size", required=False, help="Largest color bin size",
-                default=5000)
+ap.add_argument("-s", "--size", required=False, help="Largest color bin size for "
+                                                     "histogram", default=5000)
 ap.add_argument("-b", "--bins", required=False, help="Num bins per color "
-                                                     "channel", default=8)
+                                                     "channel for histogram",
+                default=8)
 args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"])
-cv2.imshow("Original", image)
+cv2.imshow("Chapter 3: Original Image (Press any key to continue)", image)
 cv2.waitKey(0)
 
 size = float(args["size"])
@@ -28,33 +29,33 @@ bins = int(args["bins"])
 (h, w) = image.shape[:2]
 pointMoveAround = (w//3, h//3)
 
-# rotate image by -10 degrees and scale by 1.7
-M = cv2.getRotationMatrix2D(pointMoveAround, -10, 1.7)
+# rotate image by -150 degrees and scale by 1.7
+M = cv2.getRotationMatrix2D(pointMoveAround, -150, 1.7)
 rotated = cv2.warpAffine(image, M, (w, h))
-cv2.imshow("Rotated by -10 degrees", rotated)
+cv2.imshow("Chapter 6: Rotate by -150 degrees, scale by 1.7", rotated)
 cv2.waitKey(0)
 
 # rotate image by 30 degrees
 rotated = imutils.rotate(image, 30)
-cv2.imshow("Rotated by 30 degrees", rotated)
+cv2.imshow("Chapter 6: Rotate by 30 degrees", rotated)
 cv2.waitKey(0)
 
 # chapter 8: blurring
 # gaussian blur with kernel size 9x9
 blurred = cv2.GaussianBlur(image, (9, 9), 0)
-cv2.imshow("Gaussian", blurred)
+cv2.imshow("Chapter 8: Gaussian Blur", blurred)
 cv2.waitKey(0)
 
 # chapter 4: accessing and manipulating pixels
 # grabs 400 x 800 pixel region from upper left of image
 corner = image[0:450, 0:800]
-cv2.imshow("Corner", corner)
+cv2.imshow("Chapter 4: Grab upper left corner of image", corner)
 cv2.waitKey(0)
 
 # chapter 6: image filter
 #applies HLS filter
 hls = cv2.cvtColor(image, cv2.COLOR_BGR2HLS_FULL)
-cv2.imshow("HLS", hls)
+cv2.imshow("Chapter 6: Apply HLS filter", hls)
 cv2.waitKey(0)
 
 # chapter 5: drawing shapes
@@ -70,7 +71,7 @@ cv2.putText(image, 'OpenCV', pointStart, font, fontScale, white, thickness, cv2.
 triangleColor = (76, 174, 206)
 pts = [(180, 250), (100, 400), (250, 400)]
 cv2.polylines(image, np.array([pts]), True, triangleColor, 5)
-cv2.imshow('Triangle Moon', image)
+cv2.imshow('Chapter 5: Add text and triangle', image)
 cv2.waitKey(0)
 
 # chapter 7: 3d histogram
@@ -87,28 +88,7 @@ for (x, plane) in enumerate(hist):
                 siz = ratio * hist[x][y][z]
                 rgb = (z / (bins - 1), y / (bins - 1), x / (bins - 1))
                 ax.scatter(x, y, z, s=siz, facecolors=rgb)
-
-plt.show(block=False)
-
-# sets timer for when to close all windows because cv2.waitKey(0) doesn't
-# work on the plt window
-while True:
-    try:
-        requestedSecTime = int(input("How many seconds would you like to view "
-                                    "these windows for? "))
-        break
-    except ValueError:
-        print("Please enter an integer :)")
-
-while requestedSecTime:
-    # divmod returns quotient and remainder of numSecRequested / 60
-    numMin, numSec = divmod(requestedSecTime, 60)
-    #formats numMin and numSec to two digits, with left digit = 0
-    timer = "{:02d}:{:02d}".format(numMin, numSec)
-    print(timer, end="\r")
-    time.sleep(1)
-    requestedSecTime -= 1
-
-print("Closing now!")
+plt.title("Chapter 7: 3D Histogram (close window to exit)")
+plt.show(block=True)
 plt.close('all')
 cv2.destroyAllWindows()
