@@ -9,4 +9,4 @@ Concepts covered:
 - Chapter 8: Add blurring 
 
 # Special Instructions: 
-I added some code at the end of my program to accomidate for closing all opened windows created by my program. Instructions are given in the terminal after all windows have been opened and it's pretty self-explanatory from there. Just in case you were looking only at the opened windows / didn't see the prompts from the terminal though, I wanted to write a quick note :) 
+Press any key to go from window to window. The last window is the 3D histogram. Close the 3D histogram window to end the program.
