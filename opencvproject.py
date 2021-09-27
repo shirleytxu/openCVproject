@@ -65,7 +65,8 @@ fontScale = 5
 thickness = 2
 white = (255, 255, 255)
 pointStart = (w//10, h//2)
-cv2.putText(image, 'OpenCV', pointStart, font, fontScale, white, thickness, cv2.LINE_AA)
+cv2.putText(image, 'OpenCV', pointStart, font, fontScale, white, thickness,
+            cv2.LINE_AA)
 
 # add yellow triangle around moon
 triangleColor = (76, 174, 206)
