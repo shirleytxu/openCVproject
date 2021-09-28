@@ -10,3 +10,5 @@ Concepts covered:
 
 # Special Instructions: 
 Press any key to go from window to window. The last window is the 3D histogram. Close the 3D histogram window to end the program.
+
+If you want to look at the timer version, please view commit 493c224400 :) 
